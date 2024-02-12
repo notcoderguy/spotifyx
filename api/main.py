@@ -30,9 +30,10 @@ app = FastAPI()
 
 origins = [
     "https://notcoderguy.com",
+    "http://notcoderguy.com",
     "https://github.com",
-    "https://spotifyx.notcoderguy.com"
-"
+    "https://spotifyx.notcoderguy.com",
+    "http://spotifyx.notcoderguy.com"
 ]
 
 templates = Jinja2Templates(directory="templates")
