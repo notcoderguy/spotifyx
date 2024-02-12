@@ -7,6 +7,9 @@ FROM node:${NODE_VERSION}-alpine as build
 # Set working directory.
 WORKDIR /usr/src/app
 
+# Arguments that can be passed during build
+ARG REACT_APP_API_BASE_URL
+
 # Copy package.json and package-lock.json for installing dependencies.
 COPY package*.json ./
 
@@ -15,6 +18,9 @@ RUN npm ci --omit=dev
 
 # Copy the rest of the source files into the image.
 COPY . .
+
+# Create .env file with the build argument
+RUN echo "REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL}" > .env
 
 # Run the build script.
 RUN npm run build
