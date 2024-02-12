@@ -5,6 +5,12 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile
+    environment:
+      - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
+      - SPOTIFY_SECRET_ID=${SPOTIFY_SECRET_ID}
+      - SPOTIFY_REFRESH_TOKEN=${SPOTIFY_REFRESH_TOKEN}
+      - REDIS_HOST=${REDIS_HOST}
+      - WAIT_TIME=${WAIT_TIME}
     ports:
       - ${API_PORT}:8000
     depends_on:
@@ -14,6 +20,8 @@ services:
     build:
       context: ./website
       dockerfile: Dockerfile
+    environment:
+      - REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL}
     ports:
       - ${WEB_PORT}:3000
     depends_on:
