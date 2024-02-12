@@ -29,11 +29,10 @@ REDIS_HOST = os.getenv("REDIS_HOST")
 app = FastAPI()
 
 origins = [
-    "http://localhost:3000",
     "https://notcoderguy.com",
     "https://github.com",
-    "http://spotify-web:3000",
-    "https://spotifyx.notcoderguy.com/"
+    "https://spotifyx.notcoderguy.com"
+"
 ]
 
 templates = Jinja2Templates(directory="templates")
