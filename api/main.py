@@ -31,7 +31,8 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",
     "https://notcoderguy.com",
-    "https://github.com"
+    "https://github.com",
+    "spotify-web:3000"
 ]
 
 templates = Jinja2Templates(directory="templates")
