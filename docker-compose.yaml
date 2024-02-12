@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  spotify-api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - ${API_PORT}:8000
+    depends_on:
+      - redis
+  
+  spotify-web:
+    build:
+      context: ./website
+      dockerfile: Dockerfile
+    ports:
+      - ${WEB_PORT}:3000
+    depends_on:
+      - spotify-api
+
+  redis:
+    image: "redis:alpine"
