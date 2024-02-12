@@ -8,16 +8,6 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-ARG UID=10001
-RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --home "/nonexistent" \
-    --shell "/sbin/nologin" \
-    --no-create-home \
-    --uid "${UID}" \
-    appuser
-
 # Install supervisor
 RUN apt-get update && apt-get install -y supervisor && rm -rf /var/lib/apt/lists/*
 
@@ -26,17 +16,12 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
     python -m pip install -r requirements.txt
 
-# Copy the source code into the container.
+# Copy the source code and Supervisor configuration file into the container.
 COPY . .
-
-# Copy the Supervisor configuration file into the container
 COPY supervisord.conf /etc/supervisor/conf.d/
 
 # Create the logs directory and adjust permissions
-RUN mkdir /app/logs && chown appuser:appuser /app/logs
-
-# Switch to the non-privileged user to run the application.
-USER appuser
+RUN mkdir /app/logs
 
 EXPOSE 8000
 
