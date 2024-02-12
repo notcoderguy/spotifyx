@@ -22,7 +22,7 @@ function TopTracks() {
     return (
         <div className="container mx-auto p-4 py-8">
             <h2 className="text-2xl font-bold mb-4">Top Tracks</h2>
-            {tracks ? (
+            {tracks.length > 0 ? (
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                     {tracks.map((track, index) => (
                         <div key={index} className="bg-base-200 rounded-lg p-4 shadow flex flex-col items-center relative">
