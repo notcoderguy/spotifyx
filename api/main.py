@@ -32,7 +32,8 @@ origins = [
     "http://localhost:3000",
     "https://notcoderguy.com",
     "https://github.com",
-    "spotify-web:3000"
+    "http://spotify-web:3000",
+    "https://spotifyx.notcoderguy.com/"
 ]
 
 templates = Jinja2Templates(directory="templates")
