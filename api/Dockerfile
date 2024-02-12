@@ -32,6 +32,9 @@ COPY . .
 # Copy the Supervisor configuration file into the container
 COPY supervisord.conf /etc/supervisor/conf.d/
 
+# Create the logs directory and adjust permissions
+RUN mkdir /app/logs && chown appuser:appuser /app/logs
+
 # Switch to the non-privileged user to run the application.
 USER appuser
 
