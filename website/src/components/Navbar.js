@@ -27,7 +27,7 @@ function Navbar() {
         </ul>
       </div>
       <div className="navbar-end">
-        <a href="https://github.com/notcoderguy/spotify" className="btn hover:bg-green-500 hover:text-primary rounded-lg">Github</a>
+        <a href="https://github.com/notcoderguy/spotifyx" className="btn hover:bg-green-500 hover:text-primary rounded-lg">Github</a>
       </div>
     </div>
   )
