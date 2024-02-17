@@ -183,4 +183,10 @@ def read_top_tracks():
 @app.get("/visualizer", response_class=HTMLResponse)
 def read_visualizer(request: Request, background_color: str = "000", border_color: str = "fff"):
     current_song = read_root()
-    return makeSVG(request, current_song, background_color, border_color)
+ 
+    svg = makeSVG(request, current_song, background_color, border_color)
+    
+    resp = Response(svg, mimetype="image/svg+xml")
+    resp.headers["Cache-Control"] = "s-maxage=1"
+
+    return resp

@@ -74,18 +74,22 @@ def get(url):
     if (SPOTIFY_TOKEN == ""):
         SPOTIFY_TOKEN = refreshToken()
 
-    response = requests.get(
-        url, headers={"Authorization": f"Bearer {SPOTIFY_TOKEN}"})
-
-    if response.status_code == 401:
-        SPOTIFY_TOKEN = refreshToken()
+    try:
         response = requests.get(
-            url, headers={"Authorization": f"Bearer {SPOTIFY_TOKEN}"}).json()
-        return response
-    elif response.status_code == 204:
-        raise Exception(f"{url} returned no data.")
-    else:
-        return response.json()
+            url, headers={"Authorization": f"Bearer {SPOTIFY_TOKEN}"})
+
+        if response.status_code == 401:
+            SPOTIFY_TOKEN = refreshToken()
+            response = requests.get(
+                url, headers={"Authorization": f"Bearer {SPOTIFY_TOKEN}"}).json()
+            return response
+        elif response.status_code == 204:
+            raise Exception(f"{url} returned no data.")
+        else:
+            return response.json()
+    except Exception as e:
+        print(f"Failed to get data from {url}.\r\n```{e}```")
+        return {}
     
 def saveToDB(data, is_playing):
     global current_wait_time
