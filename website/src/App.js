@@ -3,6 +3,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import CurrentPlaying from './pages/CurrentPlaying';
 import TopTracks from './pages/TopTracks';
+import Error from './pages/Error';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<CurrentPlaying />} />
           <Route path="/top-tracks" element={<TopTracks />} />
+          <Route path="*" element={<Error />} />
         </Routes>
       </div>
         <Footer />

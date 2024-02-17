@@ -11,6 +11,23 @@ function TopTracks() {
         }).catch(console.error);
     }, []);
 
+    useEffect(() => {
+        const lazyAudioElements = document.querySelectorAll('.lazy-audio');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const lazyAudio = entry.target;
+                    lazyAudio.src = lazyAudio.dataset.src; // Load actual audio URL 
+                    lazyAudio.classList.remove('lazy-audio');
+                    observer.unobserve(lazyAudio); 
+                }
+            });
+        });
+
+        lazyAudioElements.forEach(audioEl => observer.observe(audioEl));
+    }, []);
+
     const SkeletonCard = () => (
         <div className="animate-pulse bg-base-200 rounded-lg p-4 shadow flex flex-col items-center">
             <div className="w-full h-40 bg-gray-300 rounded-md mb-2"></div>
@@ -27,7 +44,7 @@ function TopTracks() {
                     {tracks.map((track, index) => (
                         <div key={index} className="bg-base-200 rounded-lg p-4 shadow flex flex-col items-center relative">
                             <a href={track.uri} target="_blank" rel="noopener noreferrer">
-                                <img src={track.album.images[1].url} alt="Album cover" className="w-full h-40 object-cover rounded-md mb-2" />
+                                <img src={track.album.images[1].url} alt="Album cover" className="w-full h-40 object-cover rounded-md mb-2" loading="lazy"/>
                             </a>
                             <div className="text-center">
                                 <a href={track.external_urls.spotify} className="text-sm font-semibold hover:text-green-500" target="_blank" rel="noopener noreferrer">{track.name}</a>
@@ -44,7 +61,7 @@ function TopTracks() {
                             </div>
                             {track.preview_url && (
                                 <div className='absolute w-full rounded-lg bottom-0'>
-                                    <audio controls src={track.preview_url} loop className="mt-2 w-full">
+                                    <audio controls src={track.preview_url} loop className="mt-4 w-full lazy-audio">
                                         Your browser does not support the audio element.
                                     </audio>
                                 </div>
