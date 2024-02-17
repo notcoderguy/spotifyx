@@ -9,7 +9,7 @@ import redis
 from colorthief import ColorThief
 from base64 import b64encode
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from fastapi import Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -95,7 +95,7 @@ def makeSVG(request, data, background_color, border_color):
     if not "is_playing" in data:
         #contentBar = "" #Shows/Hides the EQ bar if no song is currently playing
         currentStatus = "Recently played:"
-        recentPlays = getRedis("current-song")
+        recentPlays = getRedisValue("current-song")
         recentPlaysLength = len(recentPlays["items"])
         itemIndex = random.randint(0, recentPlaysLength - 1)
         item = recentPlays["items"][itemIndex]["track"]
