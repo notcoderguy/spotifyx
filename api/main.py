@@ -186,7 +186,5 @@ def read_visualizer(request: Request, background_color: str = "000", border_colo
  
     svg = makeSVG(request, current_song, background_color, border_color)
     
-    resp = Response(svg, mimetype="image/svg+xml")
-    resp.headers["Cache-Control"] = "s-maxage=1"
+    return Response(content=svg, media_type="image/svg+xml")  
 
-    return resp
