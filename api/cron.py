@@ -109,7 +109,7 @@ def main():
     last_top_tracks_update = datetime.datetime.now() - datetime.timedelta(weeks=1)
     while True:
         now = datetime.datetime.now()
-        if (now - last_top_tracks_update).days >= 7:
+        if (now - last_top_tracks_update).days >= 1:
             topTracks()
             last_top_tracks_update = now
         try:
@@ -118,11 +118,16 @@ def main():
             print(colorama.Fore.GREEN + f"[Now playing] - {data['item']['name']} - {data['item']['artists'][0]['name']}" + colorama.Style.RESET_ALL)
             saveToDB(data, is_playing)
         except Exception:
-            data = get(RECENTLY_PLAYING_URL)
-            is_playing = False
-            print(colorama.Fore.RED + "No song is currently playing. Showing previously played song." + colorama.Style.RESET_ALL)
-            print(colorama.Fore.GREEN + f"[Last played] - {data['items'][0]['track']['name']} - {data['items'][0]['track']['artists'][0]['name']}" + colorama.Style.RESET_ALL)
-            saveToDB(data, is_playing)
+            try:
+                data = get(RECENTLY_PLAYING_URL)
+                is_playing = False
+                print(colorama.Fore.RED + "No song is currently playing. Showing previously played song." + colorama.Style.RESET_ALL)
+                print(colorama.Fore.GREEN + f"[Last played] - {data['items'][0]['track']['name']} - {data['items'][0]['track']['artists'][0]['name']}" + colorama.Style.RESET_ALL)
+                saveToDB(data, is_playing)
+            except Exception:
+                print(colorama.Fore.RED + "Failed to get data from Spotify. Retrying in 10 seconds." + colorama.Style.RESET_ALL)
+                time.sleep(10)
+                continue
         
 if __name__ == "__main__":
     main()
