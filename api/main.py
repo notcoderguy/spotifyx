@@ -21,8 +21,7 @@ origins = [
     "https://notcoderguy.com",
     "http://notcoderguy.com",
     "https://spotifyx.notcoderguy.com",
-    "http://spotifyx.notcoderguy.com",
-    "http://192.168.0.222:3000"
+    "http://spotifyx.notcoderguy.com"
 ]
 
 app.add_middleware(
