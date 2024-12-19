@@ -12,7 +12,7 @@ function TopTracks() {
   useEffect(() => {
     fetchTopTracks()
       .then((data) => {
-        const filteredTracks = data.items.filter((track) => track.preview_url);
+        const filteredTracks = data.items.filter((track) => track);
         setTracks(filteredTracks);
       })
       .catch(console.error);
